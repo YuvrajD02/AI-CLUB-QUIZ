@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Club OIST – Web Wizards 2K25</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- <style>
+    :root{
+      --bg:#071128;
+      --primary:#4285F4;
+      --secondary:#9333EA;
+      --accent:#EC4899;
+      --text:#e6eef8;
+      --muted:#94a3b8;
+      --white:#ffffff;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Inter,system-ui;
+      background:var(--bg);
+      color:var(--text);
+      padding:16px;
+    }
+
+    /* ================= NAVBAR ================= */
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.96);
+      backdrop-filter:blur(12px);
+      border-radius:16px;
+      padding:14px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 10px 28px rgba(0,0,0,0.15);
+      margin-bottom:30px;
+    }
+
+    .nav-left{display:flex;align-items:center;gap:14px}
+
+    .logo-box{
+      width:46px;height:46px;
+      border-radius:12px;
+      background:#fff;
+      display:grid;place-items:center;
+      box-shadow:0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .logo-box img{width:34px}
+
+    .brand h2{
+      margin:0;
+      font-size:22px;
+      font-weight:800;
+      background:linear-gradient(90deg,var(--primary),var(--secondary));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .brand p{
+      margin:2px 0 0;
+      font-size:13px;
+      color:#6b7280;
+    }
+
+    .nav-right{display:flex;gap:10px}
+
+    .nav-btn,.icon-btn{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      padding:8px 14px;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .icon-btn{width:42px;height:42px;padding:0}
+
+    /* ================= HERO ================= */
+    .hero{
+      max-width:1200px;
+      margin:0 auto 46px;
+      padding:50px 56px;
+      border-radius:28px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,0.35);
+    }
+
+    .hero::before,.hero::after{
+      content:"";
+      position:absolute;
+      width:260px;height:260px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.18);
+    }
+
+    .hero::before{top:-80px;left:-80px}
+    .hero::after{bottom:-100px;right:-100px}
+
+    .hero h1{font-size:46px;margin:0 0 14px}
+    .hero span{color:#fde047}
+    .hero p{font-size:18px;line-height:1.6;opacity:.95}
+
+    .hero-stats{
+      margin-top:22px;
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .stat{
+      background:rgba(255,255,255,0.22);
+      padding:10px 18px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    /* ================= CONTROLS ================= */
+    .controls{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+
+    input,select,button{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.15);
+      color:var(--text);
+      border-radius:10px;
+      padding:8px 12px;
+    }
+
+    button{
+      background:var(--primary);
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* ================= TABLE (MATCHED THEME) ================= */
+    #tableContainer{max-width:1100px;margin:auto}
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      background:rgba(255,255,255,0.95);
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 20px 50px rgba(0,0,0,0.18);
+    }
+
+    thead{
+      background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));
+    }
+
+    th{
+      padding:14px 16px;
+      color:#fff;
+      font-size:14px;
+      font-weight:700;
+      text-align:left;
+    }
+
+    td{
+      padding:14px 16px;
+      font-size:14px;
+      color:#111827;
+      border-bottom:1px solid rgba(0,0,0,0.06);
+    }
+
+    tbody tr:nth-child(even){
+      background:#f8fafc;
+    }
+
+    tbody tr:hover{
+      background:linear-gradient(
+        90deg,
+        rgba(66,133,244,0.12),
+        rgba(147,51,234,0.12)
+      );
+    }
+
+    thead th:first-child{border-top-left-radius:20px}
+    thead th:last-child{border-top-right-radius:20px}
+
+    /* ================= FOOTER ================= */
+    footer{
+      margin-top:60px;
+      padding:36px 20px;
+      text-align:center;
+      background:linear-gradient(135deg,#f5f3ff,#eef2ff,#fdf2f8);
+      border-radius:24px;
+      color:#4b5563;
+    }
+
+    footer h3{
+      margin:0;
+      font-size:22px;
+      font-weight:800;
+      background:linear-gradient(90deg,var(--primary),var(--secondary));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    footer p{margin:8px 0;font-size:14px}
+
+    .tags{
+      margin-top:14px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .tag{
+      padding:6px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:600;
+      background:#fff;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    /* ================= CREATOR SECTION ================= */
+.creator-section{
+  max-width:1200px;
+  margin:60px auto 40px;
+  padding:0 10px;
+}
+
+.creator-card{
+  background:rgba(255,255,255,0.92);
+  border-radius:26px;
+  padding:28px 32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  box-shadow:0 30px 70px rgba(0,0,0,0.18);
+  flex-wrap:wrap;
+}
+
+.creator-left{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.creator-icon{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  font-size:18px;
+  color:white;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  box-shadow:0 12px 30px rgba(66,133,244,0.4);
+}
+
+.crafted{
+  margin:0;
+  font-size:13px;
+  color:#6b7280;
+}
+
+.creator-left h3{
+  margin:2px 0;
+  font-size:22px;
+  font-weight:800;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.role{
+  margin:0;
+  font-size:14px;
+  color:#6b7280;
+}
+
+.creator-right{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.badge{
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+  background:#eef2ff;
+  color:#4338ca;
+}
+
+.badge.light{
+  background:#e0f2fe;
+  color:#0369a1;
+}
+
+  </style> -->
+</head>
+
+<body>
+
+  <!-- navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo-box"><img src="logo.png" alt="AI Club OIST"></div>
+      <div class="brand">
+        <h2>AI Club OIST ✨</h2>
+        <p>Web Wizards 2K25 Leaderboard</p>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn">⚙️ Admin</button>
+      <button class="icon-btn">🌙</button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <section class="hero">
+      <h1>🚀 Welcome to <span>AI Club OIST</span></h1>
+      <p>Track Web Wizards 2K25 performance at Oriental Institute of Science & Technology.</p>
+      <div class="hero-stats">
+        <div class="stat">🧠 Web Quiz</div>
+        <div class="stat">🏆 Leaderboard</div>
+        <div class="stat">👨‍💻 100+ Students</div>
+      </div>
+    </section>
+
+    <section class="controls">
+  <div class="round-toggle" style="display:flex; gap:8px; align-items:center;">
+   <a href="index.html"> <button id="round1Btn">Round 1</button></a>
+    <a href="2ndwinner.html"> <button id="round2Btn">Round 2</button></a>
+  </div>
+  <input id="search" placeholder="Search name / enrollment / email">
+  <select id="scoreFilter">
+    <option value="0">All Scores</option>
+    <option value="90">Score ≥ 90</option>
+    <option value="75">Score ≥ 75</option>
+    <option value="50">Score ≥ 50</option>
+  </select>
+  <button id="reset">Reset</button>
+</section>
+
+    <!-- Winners Table -->
+    <section class="winners-section">
+      <h2>2nd Round Winners</h2>
+      <div class="winners-table-wrapper">
+        <table class="winners-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Team Name</th>
+              <th>Member Name</th>
+              <th>Enrollment</th>
+              <th>Class</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3">1</td>
+              <td rowspan="3">Team Alpha</td>
+              <td>Member A</td>
+              <td>ENR001</td>
+              <td>5th</td>
+              <td>a@example.com</td>
+            </tr>
+            <tr>
+              <td>Member B</td>
+              <td>ENR002</td>
+              <td>5th</td>
+              <td>b@example.com</td>
+            </tr>
+            <tr>
+              <td>Member C</td>
+              <td>ENR003</td>
+              <td>5th</td>
+              <td>c@example.com</td>
+            </tr>
+            <tr>
+              <td rowspan="3">2</td>
+              <td rowspan="3">Team Beta</td>
+              <td>Member D</td>
+              <td>ENR004</td>
+              <td>5th</td>
+              <td>d@example.com</td>
+            </tr>
+            <tr>
+              <td>Member E</td>
+              <td>ENR005</td>
+              <td>5th</td>
+              <td>e@example.com</td>
+            </tr>
+            <tr>
+              <td>Member F</td>
+              <td>ENR006</td>
+              <td>5th</td>
+              <td>f@example.com</td>
+            </tr>
+            <tr>
+              <td rowspan="3">3</td>
+              <td rowspan="3">Team Gamma</td>
+              <td>Member G</td>
+              <td>ENR007</td>
+              <td>5th</td>
+              <td>g@example.com</td>
+            </tr>
+            <tr>
+              <td>Member H</td>
+              <td>ENR008</td>
+              <td>5th</td>
+              <td>h@example.com</td>
+            </tr>
+            <tr>
+              <td>Member I</td>
+              <td>ENR009</td>
+              <td>5th</td>
+              <td>i@example.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= CREATOR SECTION ================= -->
+    <section class="creator-section">
+      <div class="creator-card">
+        <div class="creator-left">
+          <div class="creator-icon">
+            <>
+          </div>
+          <div>
+            <p class="crafted">Design & Developed with ❤️ by</p>
+            <h3>Aman Kumar </h3>
+            <p class="role">Technical Lead · Ai Club OIST</p>
+          </div>
+        </div>
+
+        <div class="creator-right">
+          <span class="badge">Ai ClubOIST</span>
+          <br>
+          <span class="badge_light">Oriental Institute of Science & Technology</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <h3>Ai Club OIST</h3>
+      <p>Oriental Institute of Science & Technology, Bhopal</p>
+      <p>© 2025 AI Club OIST </p>
+      <div class="tags">
+        <div class="tag1"><b>#AIClubOIST</b></div>
+        <div class="tag2"><b>#TEDx</b></div>
+        <div class="tag3"><b>#WebWizards2K25</b></div>
+        <div class="tag4"><b>#Cypher 30</b></div>
+
+      </div>
+    </footer>
+
+
+  </div>
+
+</body>
+
+
+
+
+
+
+
+<!-- <script>
+/* 🎉 CONFETTI */
+window.addEventListener("load",()=>{
+  const end=Date.now()+2200;
+  (function blast(){
+    confetti({particleCount:6,angle:60,spread:70,origin:{x:0}});
+    confetti({particleCount:6,angle:120,spread:70,origin:{x:1}});
+    if(Date.now()<end) requestAnimationFrame(blast);
+  })();
+});
+
+/* ================= DATA ================= */
+const SHEET_ID="18tq8ZBe4XxjfCLEvHO4X4gROk4G05zkkEKURPB8BjCY";
+const GID="1819403507";
+const API=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`;
+
+const tableContainer=document.getElementById("tableContainer");
+const search=document.getElementById("search");
+const filter=document.getElementById("scoreFilter");
+let students=[];
+
+fetch(API).then(r=>r.text()).then(csv=>{
+  const lines=csv.trim().split("\n");
+  const headers=lines[0].split(",").map(h=>h.replace(/"/g,"").toLowerCase());
+
+  students=lines.slice(1).map(line=>{
+    const values=line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)||[];
+    const o={}; headers.forEach((h,i)=>o[h]=(values[i]||"").replace(/"/g,"").trim());
+    const s=(o["score"]||"").match(/\d+/);
+    if(!o["name"]||!o["email address"]||!o["enrollment number"]||!s) return null;
+    return {name:o["name"],email:o["email address"],enrollment:o["enrollment number"],score:+s[0]};
+  }).filter(Boolean).sort((a,b)=>b.score-a.score);
+
+  render();
+});
+
+function render(){
+  const q=search.value.toLowerCase();
+  const min=+filter.value;
+  const list=students.filter(s=>
+    (s.name.toLowerCase().includes(q)||s.email.toLowerCase().includes(q)||s.enrollment.toLowerCase().includes(q))
+    && s.score>=min
+  );
+
+  tableContainer.innerHTML=`
+  <table>
+    <thead>
+      <tr><th>#</th><th>Name</th><th>Enrollment</th><th>Score</th><th>Email</th></tr>
+    </thead>
+    <tbody>
+      ${list.map((s,i)=>`
+      <tr>
+        <td>${i+1}</td>
+        <td>${s.name}</td>
+        <td>${s.enrollment}</td>
+        <td>${s.score}</td>
+        <td>${s.email}</td>
+      </tr>`).join("")}
+    </tbody>
+  </table>`;
+}
+
+search.oninput=render;
+filter.onchange=render;
+document.getElementById("reset").onclick=()=>{search.value="";filter.value="0";render();};
+</script> -->
+
+<script>
+  /* ================= 🎉 HURRAH CONFETTI ================= */
+  function hurrahConfetti() {
+    const duration = 2500;
+    const end = Date.now() + duration;
+
+    (function blast() {
+      confetti({
+        particleCount: 6,
+        angle: 60,
+        spread: 70,
+        origin: { x: 0 },
+        colors: ['#4285F4', '#34A853', '#FBBC05', '#EA4335']
+      });
+
+      confetti({
+        particleCount: 6,
+        angle: 120,
+        spread: 70,
+        origin: { x: 1 },
+        colors: ['#4285F4', '#34A853', '#FBBC05', '#EA4335']
+      });
+
+      if (Date.now() < end) requestAnimationFrame(blast);
+    })();
+
+    // Center boom
+    confetti({
+      particleCount: 120,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: ['#4285F4', '#34A853', '#FBBC05', '#EA4335']
+    });
+  }
+
+  window.addEventListener("load", hurrahConfetti);
+
+  /* ================= CONFIG ================= */
+  const SHEET_ID = "1F8VaFXArcZJaM4QDwiWUXU7ytyqMIiMljUBsD8LkQlQ";
+  const GID = "1945828997";
+  const API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`;
+
+  /* ================= HELPERS ================= */
+  function isValidEmail(e) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  }
+  function isValidName(n) {
+    return n && n.length >= 3 && !n.includes("?");
+  }
+  function isValidEnrollment(e) {
+    return e && e !== "N/A" && e.length >= 3;
+  }
+
+  /* ================= DATA ================= */
+  let participants = [];
+
+  fetch(API_URL + "&_ts=" + Date.now())
+    .then(res => res.text())
+    .then(csv => {
+      const lines = csv.trim().split("\n");
+      const headers = lines[0].split(",").map(h => h.replace(/"/g, "").toLowerCase());
+
+      const rows = lines.slice(1).map(line => {
+        const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = (values[i] || "").replace(/"/g, "").trim());
+        return obj;
+      });
+
+      participants = rows
+        .map(r => {
+          const name = r["name"];
+          const email = r["email address"];
+          const enrollment = r["enrollment number"];
+          const scoreMatch = (r["score"] || "").match(/\d+/);
+          const score = scoreMatch ? parseInt(scoreMatch[0]) : null;
+
+          if (
+            !isValidName(name) ||
+            !isValidEmail(email) ||
+            !isValidEnrollment(enrollment) ||
+            score === null
+          ) return null;
+
+          return { name, email, enrollment, score };
+        })
+        .filter(Boolean)
+        .sort((a, b) => b.score - a.score);
+
+      render();
+    });
+
+  /* ================= UI ================= */
+  const searchEl = document.getElementById("search");
+  const scoreFilterEl = document.getElementById("scoreFilter");
+  const tableContainer = document.getElementById("tableContainer");
+
+  function render() {
+    const q = searchEl.value.toLowerCase();
+    const minScore = parseInt(scoreFilterEl.value);
+
+    const list = participants.filter(p =>
+      (p.name.toLowerCase().includes(q) ||
+        p.email.toLowerCase().includes(q) ||
+        p.enrollment.toLowerCase().includes(q)) &&
+      p.score >= minScore
+    );
+
+    if (!list.length) {
+      tableContainer.innerHTML =
+        `<div style="text-align:center;color:#94a3b8;padding:20px">No valid participants found</div>`;
+      return;
+    }
+
+    tableContainer.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Enrollment</th>
+          <th>Score</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${list.map((p, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${p.name}</td>
+            <td>${p.enrollment}</td>
+            <td>${p.score}</td>
+            <td>${p.email}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+  }
+
+  searchEl.addEventListener("input", render);
+  scoreFilterEl.addEventListener("change", render);
+  document.getElementById("reset").onclick = () => {
+    searchEl.value = "";
+    scoreFilterEl.value = "0";
+    render();
+  };
+</script>
+
+</body>
+
+</html>
