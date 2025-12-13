@@ -458,3 +458,79 @@ footer h3{
     min-width:500px;
   }
 }
+
+#reset:hover{
+  background:#dc2626;
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(239,68,68,0.45);
+}
+
+/* Round toggle container */
+.round-toggle{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* Remove anchor default styling */
+.round-toggle a{
+  text-decoration:none;
+}
+
+/* Round buttons */
+#round1Btn,
+#round2Btn{
+  padding:10px 22px;
+  
+  font-size:14px;
+  font-weight:700;
+  border-radius:999px;
+  background:#ffffff;
+  color:#1f2937;
+  border:2px solid transparent;
+  cursor:pointer;
+  transition:all 0.25s ease;
+  box-shadow:0 8px 22px rgba(0,0,0,0.14);
+  
+}
+
+/* Hover effect */
+#round1Btn:hover,
+#round2Btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(0,0,0,0.2);
+}
+
+/* Individual accents */
+#round1Btn{
+ 
+  border-color:var(--primary);
+}
+
+#round2Btn{
+  border-color:var(--secondary);
+}
+
+/* Active round (optional class) */
+.active-round{
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#ffffff !important;
+  box-shadow:0 14px 36px rgba(66,133,244,0.45);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width:480px){
+  #reset{
+    width:100%;
+  }
+
+  .round-toggle{
+    width:100%;
+    flex-direction:column;
+  }
+
+  #round1Btn,
+  #round2Btn{
+    width:100%;
+  }
+}
