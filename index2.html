@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Web Wizards 2K25 – Results</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui;
+      background: #071128;
+      color: #e6eef8;
+      padding: 24px;
+    }
+    .container { max-width: 1100px; margin: auto; }
+    header { text-align: center; margin-bottom: 24px; }
+    h1 {
+      font-size: 44px;
+      font-weight: 800;
+      background: linear-gradient(90deg,#4285F4,#34A853,#FBBC05,#EA4335);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+    }
+    header p { color: #94a3b8; margin-top: 6px; }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e6eef8;
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+
+    button {
+      background: #4285F4;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    thead { background: rgba(66,133,244,0.15); }
+
+    th, td {
+      padding: 14px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th { color: #4285F4; font-weight: 700; }
+
+    tr:hover { background: rgba(255,255,255,0.08); }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #94a3b8;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <header>
+    <h1>Web Wizards 2K25 Results</h1>
+    <p>AI Club OIST • 2025–26</p>
+  </header>
+
+  <section class="controls">
+    <input id="search" placeholder="Search name / enrollment / email">
+    <select id="scoreFilter">
+      <option value="0">All Scores</option>
+      <option value="90">Score ≥ 90</option>
+      <option value="75">Score ≥ 75</option>
+      <option value="50">Score ≥ 50</option>
+    </select>
+    <button id="reset">Reset</button>
+  </section>
+
+  <div id="tableContainer"></div>
+
+  <footer>Made with 💙 by Aman Kumar</footer>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+const SHEET_ID = "18tq8ZBe4XxjfCLEvHO4X4gROk4G05zkkEKURPB8BjCY";
+const GID = "1819403507";
+const API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`;
+
+/* ================= HELPERS ================= */
+function isValidEmail(e) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+function isValidName(n) {
+  return n && n.length >= 3 && !n.includes("?");
+}
+function isValidEnrollment(e) {
+  return e && e !== "N/A" && e.length >= 3;
+}
+
+/* ================= DATA ================= */
+let participants = [];
+
+fetch(API_URL)
+  .then(res => res.text())
+  .then(csv => {
+    const lines = csv.trim().split("\n");
+    const headers = lines[0].split(",").map(h => h.replace(/"/g,"").toLowerCase());
+
+    const rows = lines.slice(1).map(line => {
+      const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+      const obj = {};
+      headers.forEach((h,i) => obj[h] = (values[i]||"").replace(/"/g,"").trim());
+      return obj;
+    });
+
+    participants = rows
+      .map(r => {
+        const name = r["name"];
+        const email = r["email address"];
+        const enrollment = r["enrollment number"];
+        const scoreMatch = (r["score"]||"").match(/\d+/);
+        const score = scoreMatch ? parseInt(scoreMatch[0]) : null;
+
+        if (
+          !isValidName(name) ||
+          !isValidEmail(email) ||
+          !isValidEnrollment(enrollment) ||
+          score === null
+        ) return null;
+
+        return { name, email, enrollment, score };
+      })
+      .filter(Boolean)
+      .sort((a,b)=>b.score-a.score);
+
+    render();
+  });
+
+/* ================= UI ================= */
+const searchEl = document.getElementById("search");
+const scoreFilterEl = document.getElementById("scoreFilter");
+const tableContainer = document.getElementById("tableContainer");
+
+function render() {
+  const q = searchEl.value.toLowerCase();
+  const minScore = parseInt(scoreFilterEl.value);
+
+  const list = participants.filter(p =>
+    (p.name.toLowerCase().includes(q) ||
+     p.email.toLowerCase().includes(q) ||
+     p.enrollment.toLowerCase().includes(q)) &&
+    p.score >= minScore
+  );
+
+  if (!list.length) {
+    tableContainer.innerHTML = `<div style="text-align:center;color:#94a3b8;padding:20px">No valid participants found</div>`;
+    return;
+  }
+
+  tableContainer.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Enrollment</th>
+          <th>Score</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${list.map((p,i)=>`
+          <tr>
+            <td>${i+1}</td>
+            <td>${p.name}</td>
+            <td>${p.enrollment}</td>
+            <td>${p.score}</td>
+            <td>${p.email}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+searchEl.addEventListener("input", render);
+scoreFilterEl.addEventListener("change", render);
+document.getElementById("reset").onclick = () => {
+  searchEl.value = "";
+  scoreFilterEl.value = "0";
+  render();
+};
+</script>
+</body>
+</html>
